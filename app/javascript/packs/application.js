@@ -13,6 +13,7 @@ Turbolinks.start()
 ActiveStorage.start()
 
 require ("packs/myjs")
+require ("packs/APE_javascript")
 require ("jquery")
 require("jquery-ui")
 require ('datatables.net')

@@ -1,5 +1,8 @@
+alert("javascript is being accessed");
 
 $(document).ready(startup);
+
+
 
 var $plansArray = [];
 
@@ -130,7 +133,7 @@ function makeAccordion() {
     $("#course-list").html(accordionHTML);
     
     $.ajax({
-        url: "4 - getRequirements.php",
+        url: "requirements/1.json",
         dataType: "json",
         success: function(data){
 
