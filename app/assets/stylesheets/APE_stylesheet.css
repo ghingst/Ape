@@ -1,0 +1,426 @@
+﻿
+/* Miscellanious */
+
+:root {
+    /* These are variable names. Reference them by typing 'color: var(--color-header)' for example */
+    --ash-gray: #eee2dc;
+    --makeup-brown: #c3a6a0;
+    --makeup-brown-dark: #be9471;
+    --makeup-brown-light: #edc7b7;
+    --pomegranate-red: #ac3B61;
+    --pomegranate-red-dark: #5c1935;
+    --royal-blue: #123c69;
+    --border-width: 4px;
+}
+
+@font-face {
+    font-family: "gidole";
+    src: url("Fonts/Gidole-Regular.otf");
+}
+
+
+/* Custom scrollbar */
+
+
+/* width */
+::-webkit-scrollbar {
+    width: 11px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: var(--ash-gray);
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #59534d;
+}
+
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #695b4e;
+    }
+
+
+/* Whole elements */
+
+
+body {
+    font-family: gidole;
+    background: var(--makeup-brown);
+    color: #EDC7B7;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+a {
+    color: var(--makeup-brown);
+    text-decoration: none;
+}
+
+
+/* Broad containers */
+
+
+#ape_content {
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    height: 100vh;
+}
+
+#ape_header {
+    background: var(--royal-blue);
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 100vw;
+    height: 10vh;
+    z-index: 15;
+}
+
+#ape_middle {
+    display: flex;
+    flex-direction: row;
+    height: 65vh;
+}
+
+#ape_bottom {
+    display: flex;
+    justify-content: center;
+    align-content: space-around;
+    height: 25vh;
+    flex: 1 1 auto;
+    flex-direction: row;
+}
+
+
+/* Content in the header container */
+
+
+#header-content {
+    width: 90%;
+    height: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    color: #EDC7B7;
+}
+
+#user-info{
+    height: 80%;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    row-gap: 10px;
+}
+
+#ape-title {
+    font-size: 50px;
+    font-weight: bold;
+}
+
+#banner-buttons{
+    height: 80%;
+    width: 350px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-end;
+    row-gap: 10px;
+}
+
+#plans-menu, #log-out-button{ 
+    position: relative;
+    width: 130px;
+    height: 40px;
+    display: inline-block;
+    text-align: center;
+    cursor: pointer;
+    background: var(--makeup-brown-light);
+    border-radius: 4px;
+}
+
+    #plans-menu:hover #dropdown-content{
+        display: block;
+    }
+
+#dropdown-header{
+    padding: 0 10px 0 10px;
+    font-weight: bold;
+    font-size: 35px;
+    color: var(--royal-blue);
+}
+
+#dropdown-content{
+    display: none;
+    position: absolute;
+    font-size: 20px;
+    background: var(--pomegranate-red);
+    width: 100%;
+}
+
+    #dropdown-content p{
+        margin: 0px;
+        padding: 10px 0 10px 0;
+    }
+    
+        #dropdown-content p:hover{
+            background: var(--pomegranate-red-dark);
+        }
+
+#log-out-button{
+    padding: 0 10px 0 10px;
+    font-weight: bold;
+    font-size: 35px;
+    color: var(--royal-blue);
+}
+
+/* Content in the middle container */
+
+
+#course-list {
+    overflow-y: auto;
+    background: #EDC7B7;
+    border-right: var(--border-width) solid var(--makeup-brown);
+    border-bottom: var(--border-width) solid var(--makeup-brown);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 250px;
+}
+
+    #course-list .ui-accordion-header {
+        font-weight: bold;
+        display: block;
+        cursor: pointer;
+        position: relative;
+        margin: 2px 0 0 0;
+        padding: .5em .5em .5em .7em;
+        font-size: 30px;
+        background-color: var(--makeup-brown-dark); /* #be9471;*/
+        color: var(--royal-blue);
+    }
+
+    #course-list .ui-accordion-content {
+        font-weight: bold;
+        width: 90%;
+        background-color: var(--makeup-brown-light);
+        color: var(--royal-blue);
+        font-size: 12pt;
+        line-height: 16pt;
+        padding-left: 10px;
+    }
+
+    
+    #course-list .ui-accordion-content p {
+        padding: 3px;
+        cursor: pointer;
+    }
+
+    #course-list .ui-accordion-content p:hover {
+        background-color: var(--makeup-brown);
+    }
+
+#schedules {
+    background: var(--makeup-brown);
+    border-bottom: var(--border-width) solid var(--makeup-brown);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1vh 0 1vh 0;
+    gap: 5px;
+    flex: 1 1 auto;
+    overflow-y: auto;
+}
+
+.year {
+    margin: 0;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+    width: 95%;
+}
+
+.semester {
+    background: #EDC7B7;
+    border: 2px solid var(--royal-blue);
+    color: var(--pomegranate-red);
+    padding: 10px 0 10px 0;
+    display: flex;
+    justify-content: center;
+    width: 33.3%;
+    border-radius: 10px;
+    overflow-y: auto;
+}
+
+.period {
+    font-weight: bold;
+    width: 95%;
+    text-align: left;
+}
+
+.period-header {
+    display: flex;
+    flex-direction: row;
+    
+}
+
+.period-header-semester {
+    width: 50%;
+    text-align: left;
+}
+
+.period-header-credits {
+    width: 50%;
+    text-align: right;
+}
+
+.course {
+    margin: 5px 0 5px 0;
+    font-style: normal;
+    font-size: medium;
+    color: var(--royal-blue);
+    cursor: pointer;
+    transition: all .1s;
+    padding: 2px;
+}
+
+    .course:hover{
+        background: var(--makeup-brown);
+    }
+
+
+/* Content in the bottom container */
+
+
+#LL-box {
+    background: #EDC7B7;
+    border-right: var(--border-width) solid var(--makeup-brown);
+    border-top: var(--border-width) solid var(--makeup-brown);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    width: 250px;
+}
+
+#LL-box-content {
+    width: 98%;
+    height: 160px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+}   
+
+    .external-link{
+        font-size: 22px;
+    }
+    
+        .external-link a {
+            color: var(--pomegranate-red);
+            transition: color .2s;
+        }
+    
+            .external-link a:hover{
+                color: var(--pomegranate-red-dark);
+            }
+
+#course-finder {
+    padding: 10px;
+    font-weight: bold;
+    overflow: auto;
+    background: var(--makeup-brown-light);
+    border-left: var(--border-width) solid var(--makeup-brown);
+    border-top: var(--border-width) solid var(--makeup-brown);
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 auto;
+}
+
+label[for=search] {
+    color: var(--pomegranate-red);
+    padding-left: 10px;
+}
+
+#catalog_table th {
+    text-align: left;
+    color: var(--pomegranate-red);
+}
+
+#catalog_table td {
+    background-color: var(--makeup-brown-light);
+    color: var(--royal-blue);
+}
+
+/* Small-screen compatibility */
+
+
+@media only screen and (max-width: 650px) {
+
+    #header{
+        height: 15vh;
+    }
+
+    #middle {
+        height: 70vh;
+        flex-direction: column;
+    }
+
+    #bottom{
+        height: 15vh;
+    }
+
+    #header-content{
+        flex-direction: column;
+        align-content: center;
+    }
+
+    .header-link{
+        font-size: 2.5vh;
+    }
+
+    #ape-title{
+        text-align: center;
+        font-size: 5vh;
+    }
+
+    #course-list{
+        width: 100%;
+    }
+
+    #schedules {
+        border-top: var(--border-width) solid var(--makeup-brown);
+    }
+
+    .year {
+        flex-direction: column;
+    }
+
+    .semester {
+        width: 98%;
+    }
+
+    #form-box{
+        display: inline;
+    }
+
+}
+
+
+@media only screen and (max-height: 640px) {
+    #form-box{
+        display: inline;
+    }
+}
