@@ -1,5 +1,3 @@
-alert("javascript is being accessed");
-
 $(document).ready(startup);
 
 
@@ -133,7 +131,7 @@ function makeAccordion() {
     $("#course-list").html(accordionHTML);
     
     $.ajax({
-        url: "requirements/1.json",
+        url: "http://localhost:3000/requirements/1.json",
         dataType: "json",
         success: function(data){
 
@@ -174,7 +172,8 @@ function makeAccordion() {
             }
             accordionHTML += '</div>';
     
-            $("#course-list").html(accordionHTML).accordion(header, "h2").accordion("destroy").accordion(header, "h2");
+            $("#course-list").html(accordionHTML).accordion().accordion("destroy").accordion();
+            //removed "header, "h2"" from accordion(__)
             
             //alert("got here");
         }
@@ -297,8 +296,14 @@ function loadCourseInfo(index) {
         courses: [],
     }
 
+    $.getJSON("1", function(data){
+        var yearsArray = [];
+        plansArray = [];
+        
+    })
+
     $.ajax({
-        url: "plans/1.json",
+        url: "1.json",
         dataType: "json",
         success: function(data){
 
@@ -378,7 +383,7 @@ function loadCourseInfo(index) {
             $(".plan-option").click(switchPlans);
 
             // Pull out data relating to the catalog
-            catalog.year = data.catalog[0].year;        // The catalog year is consistent in each tuple, so it doesn't matter which one we pick
+            catalog.year = data.catalog.year;        // The catalog year is consistent in each tuple, so it doesn't matter which one we pick
             $.each(data.catalog, function (idx, val) {
                     catalog.courses.push(new CatalogCourse(val.course_id, val.name, val.description, val.credits));
             });
