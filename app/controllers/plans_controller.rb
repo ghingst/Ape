@@ -13,6 +13,7 @@ class PlansController < ApplicationController
     @major = Major.find_by(id: @plan.major_id)
     @catalog = Catalog.find_by(id: @plan.catalog_id)
     @requirement = Requirement.find_by(major_id: @major.id, catalog_id: @catalog.id)
+    @user = User.find_by(id: current_user.id)
   end
 
   # GET /plans/new

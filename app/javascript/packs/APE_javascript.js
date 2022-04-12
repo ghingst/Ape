@@ -9,6 +9,7 @@ function startup(){
     $('#catalog_table').DataTable();
     $('#log-out-button').click(function (){
         window.location.replace("4 - login.php");
+        
     });
 
     loadCourseInfo(0);
@@ -26,8 +27,11 @@ function switchPlans(){
 //function to create Course objects
 
 class Plan {
-    constructor(planName){
+    constructor(planName, major, firstName, lastName){
         this.planName = planName;
+        this.major = major;
+        this.firstName = firstName;
+        this.lastName = lastName;
         this.courseObjects = [];
     }
 }
@@ -296,12 +300,6 @@ function loadCourseInfo(index) {
         courses: [],
     }
 
-    $.getJSON("1", function(data){
-        var yearsArray = [];
-        plansArray = [];
-        
-    })
-
     $.ajax({
         url: "1.json",
         dataType: "json",
@@ -309,63 +307,89 @@ function loadCourseInfo(index) {
 
             var yearsArray = [];
             plansArray = [];
-            //alert(data.plan);
+            //alert(data.plans.at(0).plan_name);
             // Pull out data relating to the plan
-            $.each(data.plan, function (idx, val) {
+            $.each(data.plans, function (idx, val) {
                     // Test for if we encounter a new plan. The first plan will trigger this by default
                     var isPlanAdded = false;
+                    //alert(val.courses.at(0).term);
                     for(i = 0; i < plansArray.length; i++){
+                        
                         if(plansArray.at(i).planName == val.plan_name){
 
                             // Push into different years based on terms
-                            if(val.term == "Fall"){
-                                plansArray.at(i).courseObjects.push(new PlanCourse(val.term, val.year, val.course_id));
-                            }
-                            else {
-                                plansArray.at(i).courseObjects.push(new PlanCourse(val.term, val.year - 1, val.course_id));
+                            
+                            for(j = 0; j < val.courses.length; i++) {
+                                //push into appropriate term and year
+                                if (val.courses.at(j).term == "Fall") {
+                                    plansArray.at(i).courseObjects.push(new PlanCourse(val.courses.at(j).term, val.courses.at(j).year, val.courses.at(j).designator));
+                                }
+                                else {
+                                    plansArray.at(i).courseObjects.push(new PlanCourse(val.courses.at(j).term, val.courses.at(j).year-1, val.courses.at(j).designator));
+                                }
+                                // Test for if we encounter a year we haven't encountered yet
+                                var isYearAdded = false
+                                var offset = 0;
+                                for(k = 0; k < yearsArray.length; k++){
+                                    if(val.courses.at(j).term == 'Fall'){
+                                        offset = 0;
+                                    }
+                                    else{
+                                        offset = 1;
+                                    }
+            
+                                    if(parseInt(yearsArray.at(k).year) == parseInt(val.courses.at(j).year) - offset){
+                                        isYearAdded = true;
+                                        break;
+                                    }
+                                }
+                                if(!isYearAdded){
+                                    yearsArray.push(new Year(val.courses.at(j).year - offset));
+                                }
                             }
 
                             isPlanAdded = true;
                             break;
                         }
-                    }
-                    if(!isPlanAdded){
-                        plansArray.push(new Plan(val.plan_name));
 
-                        // Push into different years based on terms
-                        if(val.term == "Fall"){
-                            plansArray.at(i).courseObjects.push(new PlanCourse(val.term, val.year, val.course_id));
-                        }
-                        else {
-                            plansArray.at(i).courseObjects.push(new PlanCourse(val.term, val.year - 1, val.course_id));
-                        }
+                    }
+                    if(!isPlanAdded){                        
+                        plansArray.push(new Plan(val.plan_name, val.major, val.first_name, val.last_name));
+                        
+                        //alert(plansArray.at(0).plan_name);
+                        //add courses
+                        for(j = 0; j < val.courses.length; j++) {
+                            //push into appropriate term and year
+                            if (val.courses.at(j).term == "Fall") {
+                                plansArray.at(plansArray.length -1).courseObjects.push(new PlanCourse(val.courses.at(j).term, val.courses.at(j).year, val.courses.at(j).designator));
+                            }
+                            else {                                
+                                plansArray.at(plansArray.length -1).courseObjects.push(new PlanCourse(val.courses.at(j).term, val.courses.at(j).year-1, val.courses.at(j).designator));
+                            }
+                            // Test for if we encounter a year we haven't encountered yet
+                            var isYearAdded = false
+                            var offset = 0;
+                            for(k = 0; k < yearsArray.length; k++){
+                                if(val.courses.at(j).term == 'Fall'){
+                                    offset = 0;
+                                }
+                                else{
+                                    offset = 1;
+                                }
+        
+                                if(parseInt(yearsArray.at(k).year) == parseInt(val.courses.at(j).year) - offset){
+                                    isYearAdded = true;
+                                    break;
+                                }
+                            }
+                            if(!isYearAdded){
+                                yearsArray.push(new Year(val.courses.at(j).year - offset));
+                            }
 
-                        //alert(plansArray.at(plansArray.length - 1).courseObjects.at(0).courseDesignator);
-                    }
-                    
-                    // Test for if we encounter a year we haven't encountered yet
-                    var isYearAdded = false
-                    var offset = 0;
-                    //alert(val.course_id + " " + val.year);
-                    for(i = 0; i < yearsArray.length; i++){
-                        if(val.term == 'Fall'){
-                            offset = 0;
                         }
-                        else{
-                            offset = 1;
-                        }
-
-                        if(parseInt(yearsArray.at(i).year) == parseInt(val.year) - offset){
-                            isYearAdded = true;
-                            break;
-                        }
-                    }
-                    if(!isYearAdded){
-                        yearsArray.push(new Year(val.year));
-                    }
-                    
+                    }                    
             });
-            
+            //alert(plansArray.at(0).courseObjects.at(0).courseDesignator);
             // Sort the years array
             yearsArray.sort(function(a, b) {
               return a.year - b.year;
@@ -383,9 +407,10 @@ function loadCourseInfo(index) {
             $(".plan-option").click(switchPlans);
 
             // Pull out data relating to the catalog
+            //alert(data.catalog.year);
             catalog.year = data.catalog.year;        // The catalog year is consistent in each tuple, so it doesn't matter which one we pick
-            $.each(data.catalog, function (idx, val) {
-                    catalog.courses.push(new CatalogCourse(val.course_id, val.name, val.description, val.credits));
+            $.each(data.catalog.courses, function (idx, val) {
+                    catalog.courses.push(new CatalogCourse(val.designator, val.name, val.description, val.credit));
             });
 
             convertPlanToYear(plansArray.at(index).courseObjects, yearsArray, catalog);
