@@ -9,7 +9,6 @@ class RequirementsController < ApplicationController
   # GET /requirements/1 or /requirements/1.json
   def show
     @categories = Category.where(requirement_id: @requirement.id)
-
     
   end
 

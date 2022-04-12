@@ -144,15 +144,21 @@ function makeAccordion() {
             var cognateArray = [];
 
             // Get the data from the database
-            $.each(data, function (idx, val){
-                if(val.category == "Core"){
-                    coreArray.push(val.course_id + " " + val.name);
+            $.each(data.categories, function (idx, val){
+                if(val.name == "Core"){
+                    for(i = 0; i < val.courses.length; i++) {
+                        coreArray.push(val.courses.at(i).designator + " " + val.courses.at(i).title);
+                    }      
                 }
-                else if(val.category == "Electives"){
-                    electiveArray.push(val.course_id + " " + val.name);
+                else if(val.name == "Electives"){
+                    for(i = 0; i < val.courses.length; i++) {
+                        electiveArray.push(val.courses.at(i).designator + " " + val.courses.at(i).title);
+                    } 
                 }
-                else if(val.category == "Cognates"){
-                    cognateArray.push(val.course_id + " " + val.name);
+                else if(val.name == "Cognates"){
+                    for(i = 0; i < val.courses.length; i++) {
+                        cognateArray.push(val.courses.at(i).designator + " " + val.courses.at(i).title);
+                    } 
                 }
             });
 
