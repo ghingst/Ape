@@ -5,6 +5,7 @@ class PlansController < ApplicationController
   # GET /plans or /plans.json
   def index
     @plans = Plan.where(user_id: current_user.id)
+    @plan = Plan.first
   end
 
   # GET /plans/1 or /plans/1.json

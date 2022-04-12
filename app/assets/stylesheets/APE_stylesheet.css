@@ -230,6 +230,10 @@ a {
         background-color: var(--makeup-brown);
     }
 
+.req-status {
+    height: 0.7em;
+}
+    
 #schedules {
     background: var(--makeup-brown);
     border-bottom: var(--border-width) solid var(--makeup-brown);
@@ -298,6 +302,23 @@ a {
         background: var(--makeup-brown);
     }
 
+.courseWrapper {
+    position: relative;
+}
+
+.del-course {
+    display: none;
+    height: 0.7em;
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px;
+}
+
+    .course:hover .del-course{
+        display: inline;
+    }
+    
 
 /* Content in the bottom container */
 
