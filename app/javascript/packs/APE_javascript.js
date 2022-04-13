@@ -75,7 +75,7 @@ class Term {
 function convertPlanToYear(courseArray, yearArray, catalog) {
     //alert(courseArray.length);
     //zero out credit counts
-    alert(courseArray.length);
+    //alert(courseArray.at(0).courseDesignator + " " + courseArray.at(0).courseTerm);
     for (var i = 0; i < yearArray.length; i++) {
         yearArray[i].fallTerm.credits = 0;
         yearArray[i].springTerm.credits = 0;
@@ -252,7 +252,48 @@ function updateCredits(){
 function makeHTML(yearArray, catalog, major, studentName) {
     var html = "";
     var termCredits = 0;
+    // alert("first year fall term");
+    // alert(yearArray.at(0).fallTerm.courses.at(0).courseDesignator);
+    // alert("first year fall term second course");
+    // alert(yearArray.at(0).fallTerm.courses.at(1).courseDesignator);
+    // alert("first year fall term third course");
+    // alert(yearArray.at(0).fallTerm.courses.at(2).courseDesignator);
+    // alert("first year fall term fourth course");
+    // alert(yearArray.at(0).fallTerm.courses.at(3).courseDesignator);
+    // alert("courses in first year fall term:");
+    // alert(yearArray.at(0).fallTerm.courses.length);
+    // alert("second year fall term");
+    // alert(yearArray.at(1).fallTerm.courses.at(0).courseDesignator);
+
+
+    // alert("number of years");
+    // alert(yearArray.length);
+    // for (i = 0; i < yearArray.length; i++) {
+    //     alert("Fall, year " + parseInt(i) + " course count");
+    //     alert(yearArray.at(i).fallTerm.courses.length);
+    //     for (j = 0; j < yearArray.at(i).fallTerm.courses.length; j++) {
+    //         alert("Fall, year " + parseInt(i) + " course " + parseInt(j));
+    //         alert(yearArray.at(i).fallTerm.courses.at(j).courseDesignator);
+    //     }
+    //     alert("Spring, year " + parseInt(i) + " course count");
+    //     alert(yearArray.at(i).springTerm.courses.length);
+    //     for (j = 0; j < yearArray.at(i).springTerm.courses.length; j++) {
+    //         alert("Spring, year " + parseInt(i) + " course " + parseInt(j));
+    //         alert(yearArray.at(i).springTerm.courses.at(j).courseDesignator);
+    //     }
+    //     alert("Summer, year " + parseInt(i) + " course count");
+    //     alert(yearArray.at(i).summerTerm.courses.length);
+    //     for (j = 0; j < yearArray.at(i).summerTerm.courses.length; j++) {
+    //         alert("Summer, year " + parseInt(i) + " course " + parseInt(j));
+    //         alert(yearArray.at(i).summerTerm.courses.at(j).courseDesignator);
+    //     }
+    // }
     //var planCredits = 0;
+
+    // var coursesPrinted = {
+    //     year: "",
+    //     courses: [],
+    // }
     for (var i = 0; i < yearArray.length; i++) {
         //alert(planCredits);
         html += "<div class=\"year\">";
@@ -267,9 +308,12 @@ function makeHTML(yearArray, catalog, major, studentName) {
                     html += "</div>";
                             //html += "<div style='width: 100%'><span>Fall " + yearArray.at(i).year + "</span>";
                             //html += "<span style='position: absolute; right: 0'>credits: 10</span></div>";
+                    //alert("Fall " + parseInt(i) + " courses to be printed:")
+                    //alert(yearArray.at(i).fallTerm.courses.length);
                     for (var j = 0; j < yearArray[i].fallTerm.courses.length; j++) {
                         for (var k = 0; k < catalog.courses.length; k++) {
                             if (catalog.courses[k].id == yearArray[i].fallTerm.courses[j].courseDesignator) {
+                                //alert("writing html for fall, year: " + parseInt(i) +" course: " + parseInt(j) + " catalog course: " +parseInt(k));
                                 termCredits += parseInt(catalog.courses[k].credits);
                                 //html += "<p class=\"course\">" + yearArray[i].fallTerm.courses[j].courseDesignator + " " +catalog.courses[k].name + "</p>";
                                 credits = parseInt(catalog.courses[k].credits);
@@ -378,6 +422,8 @@ function makeHTML(yearArray, catalog, major, studentName) {
 
 }
 
+//window.makeHTML = makeHTML;
+
 function makeCatalogDiv(catalog) {
     var html = "";
     html += "<div>"
@@ -409,6 +455,8 @@ function makeCatalogDiv(catalog) {
 
     //$("#course-finder").html(html);
 }
+
+//window.makeCatalogDiv = makeCatalogDiv;
 
 function loadCourseInfo(index) {
 
@@ -470,7 +518,7 @@ function loadCourseInfo(index) {
                 //         }
                 //         //if we have added the plan with the index we want to display, 
                 //         //pull the catalog for that plan so it can alsod be displayed
-                //         if (plansArray.length > index) {
+                //         if (plansArray.length == index + 1) {
                 //             if (val.catalog.year == plansArray.at(index).catalog) {
                 //                 catalog.year = val.catalog.year;
                 //                 $.each(val.catalog.courses, function (idx, val) {
@@ -493,17 +541,17 @@ function loadCourseInfo(index) {
                         //push into appropriate term and year
                         if (val.courses.at(j).term == "Fall") {
 
-                            isCourseAdded = false;
-                            for(m=0; m < plansArray.at(plansArray.length -1).courseObjects.length; m++) {
-                                if (plansArray.at(plansArray.length -1).courseObjects.at(m).designator == val.courses.at(j).designator) {
-                                    isCourseAdded = true;
-                                    break;
-                                }
-                            }
+                            //isCourseAdded = false;
+                            // for(m=0; m < plansArray.at(plansArray.length -1).courseObjects.length; m++) {
+                            //     if (plansArray.at(plansArray.length -1).courseObjects.at(m).designator == val.courses.at(j).designator) {
+                            //         isCourseAdded = true;
+                            //         break;
+                            //     }
+                            // }
 
-                            if (!isCourseAdded) {
-                                plansArray.at(plansArray.length -1).courseObjects.push(new PlanCourse(val.courses.at(j).term, val.courses.at(j).year, val.courses.at(j).designator));
-                            }
+                            //if (!isCourseAdded) {
+                            plansArray.at(plansArray.length -1).courseObjects.push(new PlanCourse(val.courses.at(j).term, val.courses.at(j).year, val.courses.at(j).designator));
+                            //}
                         }
                         else {                                
                             plansArray.at(plansArray.length -1).courseObjects.push(new PlanCourse(val.courses.at(j).term, val.courses.at(j).year-1, val.courses.at(j).designator));
@@ -525,13 +573,14 @@ function loadCourseInfo(index) {
                             }
                         }
                         if(!isYearAdded){
+                            //alert(parseInt(offset));
                             yearsArray.push(new Year(val.courses.at(j).year - offset));
                         }
 
                     }
                     //if we have added the plan with the index we want to display, 
-                    //pull the catalog for that plan so it can alsod be displayed
-                    if (plansArray.length > index) {
+                    //pull the catalog for that plan so it can also be displayed
+                    if (plansArray.length == index + 1) {
                         if (val.catalog.year == plansArray.at(index).catalog) {
                             catalog.year = val.catalog.year;
                             $.each(val.catalog.courses, function (idx, val) {
@@ -571,6 +620,8 @@ function loadCourseInfo(index) {
 
     });
 }
+
+window.loadCourseInfo = loadCourseInfo;
 
 
 
