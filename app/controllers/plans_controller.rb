@@ -11,6 +11,7 @@ class PlansController < ApplicationController
   # GET /plans/1 or /plans/1.json
   def show
     @plans = Plan.where(user_id: current_user.id)
+    @plan = Plan.first
     @major = Major.find_by(id: @plan.major_id)
     @catalog = Catalog.find_by(id: @plan.catalog_id)
     @requirement = Requirement.find_by(major_id: @major.id, catalog_id: @catalog.id)
